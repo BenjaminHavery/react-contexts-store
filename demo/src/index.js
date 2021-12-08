@@ -1,5 +1,6 @@
-import React, {Component} from 'react'
-import {render} from 'react-dom'
+
+import React, { Component } from 'react'
+import { render } from 'react-dom'
 
 import Styles from './styles/main'
 import Demo1 from './Demo1/index'
