@@ -32,7 +32,7 @@ const Demo1 = () => {
           <ul>
             <li><b>StoreProvider</b> - React component for wrapping the portion of your app which can access this store.</li>
             <li><b>useDispatch</b> - React hook for dispatching store actions.</li>
-            <li><b>useInt</b> - React hook for subscribing to the "int" value in store state, inferred from your <b>initialState</b>.</li>
+            <li><b>useInt</b> - React hook for subscribing to the <b>int</b> value in store state, inferred from your <b>initialState</b>.</li>
           </ul>
           You could also export the key useStore, for subscribing to the root state object, but this is the least optimal in terms of update frequency so I don't advise it (more on that later).
         </li>
@@ -45,8 +45,8 @@ const Demo1 = () => {
 
       <h3>Using the store</h3>
       <ul>
-        <li>Import and call the <b>useInt</b> hook in a component to subscribe to the value of the store key "int". This value is stable regardless of whether other state keys are updated, overcomming the primary optimisation headache of other context-store implementations.</li>
-        <li>Import and call the <b>useDispatch</b> hook in a component to access the dispatch() function, for dispatching actions. This function has a stable value that will never trigger a re-render in components which subscribe to it, much like the output of the React useReducer hook which is its underlying source.</li>
+        <li>Import and call the <b>useInt</b> hook in a component to subscribe to the value of <b>int</b>. This value is stable regardless of whether other state keys are updated, overcomming the primary optimisation headache of other context-store implementations.</li>
+        <li>Import and call the <b>useDispatch</b> hook in a component to access the <b>dispatch()</b> function, for dispatching actions. This function has a stable value that will never trigger a re-render in components which subscribe to it, much like the output of the React useReducer hook which is its underlying source.</li>
       </ul>
       <Code3/>
     </div>
@@ -95,26 +95,30 @@ const Code2 = () => <Code>{`
 import { StoreProvider } from './store'
 
 export default () => (
-  <App>
-    <ExampleComponent1WhichCannotUseStore/>
-    <StoreProvider>
-      <ExampleComponent2WhichCanUseStore/>
-      <ExampleComponent3WhichCanUseStore/>
-    </StoreProvider>
-  </App>
+  <YourApp>
+    <ExampleComponent1WhichCannotUseStore>
+      <ExampleComponent2WhichCannotUseStore/>
+      <StoreProvider>
+        <ExampleComponent3WhichCanUseStore/>
+        <ExampleComponent4WhichCanUseStore>
+          <ExampleComponent5WhichCanUseStore/>
+        </ExampleComponent4WhichCanUseStore>
+      </StoreProvider>
+    </ExampleComponent1WhichCannotUseStore>
+  </YourApp>
 );
 `}</Code>
 
 const Code3 = () => <Code>{`
-import { useDispatch, useInt } from './store'
+import { useInt, useDispatch } from './store'
 
 export default () => {
-  const dispatch = useDispatch();
   const int = useInt();
+  const dispatch = useDispatch();
 
   return (
     <div>
-      <p>Int: { int }</p>
+      <p><b>Int:</b> { int }</p>
       <button onClick={() => dispatch('increment')}>Increment</button>
       <button onClick={() => dispatch({ type: 'multiply', by: 2 })}>Double</button>
       <button onClick={() => dispatch({ type: 'multiply', by: int })}>Square</button>

@@ -18,7 +18,7 @@ import {
   useArrayExampleMiddle,
 } from './store'
 
-const ValueTest = ({ name = 'valueName', useValue }) => {
+const ValueTest = ({ name, useValue }) => {
   const val = useValue();
   const renderCount = useRef(0);
   renderCount.current += 1;
@@ -62,7 +62,7 @@ const Demo2 = () => {
       <p>Let's also create a generic ValueTest component, to render a value from our store via a subscription to its useValue hook and count the number of times it has rendered. This information will be tabulated so our component should return a table row:</p>
       <Code2/>
 
-      <p>Finally lets use ValueTest in a component to render every state value into a table, along with some buttons for dispatching test actions:</p>
+      <p>Finally lets use ValueTest in a component to render every one of our state values (including the root state) into a table, along with some buttons for dispatching test actions:</p>
       <Code3/>
 
       <p>Click some buttons below and check out the result:</p>
@@ -110,6 +110,8 @@ const Code = ({ children }) => <pre>{ children.trim() }</pre>
 
 // Example code blocks
 const Code1 = () => <Code>{`
+import { makeStore } from 'react-contexts-store';
+
 const store = makeStore({
   initialState: {
     int: 0,
@@ -125,7 +127,8 @@ const store = makeStore({
     arrayExample: ['one', 'two', 'three'],
   },
   selectors: {
-    arrayExampleFirst: (state) => state.arrayTest[0],
+    arrayExampleFirst: (state) => state.arrayExample[0],
+    arrayExampleMiddle: (state) => state.arrayExample[1],
   },
   actions: {
     incrementInt1: (state) => ({ ...state, int: state.int + 1 }),
@@ -138,19 +141,42 @@ const store = makeStore({
 const {
   StoreProvider,
   useDispatch,
+  useStore,
   useInt,
   useString,
   useObjectExample,
   useObjectExampleInt,
-  useString2,
+  useObjectExampleString: useString2, // Renaming long hooks here can be handy
   useObjectExampleDeepObject,
   useObjectExampleDeepObjectInt,
-  useObjectExampleDeepObjectString,
+  useObjectExampleDeepObjectString, // Renamed below
+  useArrayExample,
+  useArrayExampleFirst,
+  useArrayExampleMiddle,
 } = store;
+
+export {
+  StoreProvider,
+  useDispatch,
+  useStore,
+  useInt,
+  useString,
+  useObjectExample,
+  useObjectExampleInt,
+  useString2, // Renamed above
+  useObjectExampleDeepObject,
+  useObjectExampleDeepObjectInt,
+  useObjectExampleDeepObjectString as useString3, // Renaming here also is fine
+  useArrayExample,
+  useArrayExampleFirst,
+  useArrayExampleMiddle,
+};
 `}</Code>
 
 const Code2 = () => <Code>{`
-const ValueTest = ({ name = 'valueName', useValue }) => {
+import { useRef } from 'react';
+
+const ValueTest = ({ name, useValue }) => {
   const val = useValue();
   const renderCount = useRef(0);
   renderCount.current += 1;
