@@ -5,6 +5,7 @@ import { render } from 'react-dom'
 import Styles from './styles/main'
 import Demo1 from './Demo1/index'
 import Demo2 from './Demo2/index'
+import Demo3 from './Demo3/index'
 
 export default class Demo extends Component {
   render() {
@@ -16,6 +17,7 @@ export default class Demo extends Component {
 
       <Demo1/>
       <Demo2/>
+      <Demo3/>
 
       <Styles/>
     </div>

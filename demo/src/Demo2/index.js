@@ -226,10 +226,12 @@ export default () => {
 
   return (
     <div>
-      <button onClick={() => dispatch('incrementInt1')}>Increment int 1</button>
-      <button onClick={() => dispatch('incrementInt2')}>Increment int 2</button>
-      <button onClick={() => dispatch('incrementInt3')}>Increment int 3</button>
-      <button onClick={() => dispatch('reverseArray')}>Reverse array</button>
+      <p>
+        <button onClick={() => dispatch('incrementInt1')}>Increment int 1</button>
+        <button onClick={() => dispatch('incrementInt2')}>Increment int 2</button>
+        <button onClick={() => dispatch('incrementInt3')}>Increment int 3</button>
+        <button onClick={() => dispatch('reverseArray')}>Reverse array</button>
+      </p>
       <table>
         <tbody>
           <tr>

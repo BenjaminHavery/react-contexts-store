@@ -53,6 +53,7 @@ em { font-style: italic; }
 table {
   width: 100%;
   text-align: left;
+  margin: 0 0 10px;
 }
 table, tr, td, th { border-collapse: collapse; }
 th, td {
