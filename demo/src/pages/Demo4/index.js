@@ -1,8 +1,8 @@
 
 import React from 'react'
 
-import ValueTrackerTable from '../components/ValueTrackerTable';
-import Code from '../components/Code';
+import ValueTrackerTable from 'Components/ValueTrackerTable';
+import Code from 'Components/Code';
 
 import {
   StoreProvider,

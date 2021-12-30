@@ -1,5 +1,5 @@
 
-import { makeStore } from '../../../src/index';
+import { makeStore } from 'react-contexts-store';
 
 
 const store = makeStore({

@@ -1,7 +1,5 @@
 
-import { makeStore } from '../../../../src/index';
-
-import exampleSlice from './slices/exampleSlice';
+import { makeStore } from 'react-contexts-store';
 
 
 const store = makeStore({
@@ -10,22 +8,19 @@ const store = makeStore({
   },
   actions: {
     increment: (state) => ({ ...state, int: state.int + 1 }),
+    multiply: (state, action) => ({ ...state, int: state.int * action.by }),
+    reset: (state) => ({ ...state, int: 0 }),
   },
-  slices: [
-    exampleSlice,
-  ],
 });
 
 const {
   StoreProvider,
   useDispatch,
-  useStore,
   useInt,
 } = store;
 
 export {
   StoreProvider,
   useDispatch,
-  useStore,
   useInt,
 };

@@ -1,5 +1,5 @@
 
-import { makeSlice } from '../../../../../src/index';
+import { makeSlice } from 'react-contexts-store';
 
 
 const exampleSlice = makeSlice({ // All config keys optional, returns symetrical with makeStore but without useStore, useDispatch and StoreProvider

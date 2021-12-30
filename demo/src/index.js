@@ -2,11 +2,11 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 
-import Styles from './styles/main'
-import Demo1 from './Demo1/index'
-import Demo2 from './Demo2/index'
-import Demo3 from './Demo3/index'
-import Demo4 from './Demo4/index'
+import Styles from 'Styles/main'
+import Demo1 from 'Pages/Demo1/index'
+import Demo2 from 'Pages/Demo2/index'
+import Demo3 from 'Pages/Demo3/index'
+import Demo4 from 'Pages/Demo4/index'
 
 export default class Demo extends Component {
   render() {
