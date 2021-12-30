@@ -20,11 +20,14 @@ import {
 
 
 // Wrap store
-export default () => (
-  <StoreProvider>
-    <Demo/>
-  </StoreProvider>
-)
+export default {
+  title: 'Computed selectors',
+  Component: () => (
+    <StoreProvider>
+      <Demo/>
+    </StoreProvider>
+  )
+}
 
 
 // Demo page
@@ -33,7 +36,6 @@ const Demo = () => {
 
   return (
     <div>
-      <h2>Computed store values</h2>
       <Code1/>
 
       <p>Click some buttons below and check out the result:</p>

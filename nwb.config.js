@@ -14,9 +14,16 @@ module.exports = {
       'Components': path.resolve(__dirname, 'demo/src/components/'),
       'Pages': path.resolve(__dirname, 'demo/src/pages/'),
       'Styles': path.resolve(__dirname, 'demo/src/styles/'),
+      'Store': path.resolve(__dirname, 'demo/src/store/'),
+      'Util': path.resolve(__dirname, 'demo/src/util/'),
     },
     copy: [
       { from: 'demo/src/public' },
     ],
-  }
+    extra: {
+      resolve: {
+        mainFiles: ['index'],
+      },
+    },
+  },
 }

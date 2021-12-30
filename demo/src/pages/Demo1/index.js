@@ -1,6 +1,8 @@
 
 import React from 'react'
 
+import Code from 'Components/Code';
+
 import {
   StoreProvider,
   useDispatch,
@@ -8,13 +10,22 @@ import {
 } from './store'
 
 
-const Demo1 = () => {
+export default {
+  title: 'Basic usage',
+  Component: () => (
+    <StoreProvider>
+      <Demo/>
+    </StoreProvider>
+  )
+}
+
+
+const Demo = () => {
   const dispatch = useDispatch();
   const int = useInt();
 
   return (
     <div>
-      <h2>Basic Usage</h2>
       <p>Let's make a store with a single state key, "int", and some actions for manupulating it. We'll then access int in a component and update it via some buttons, producing the following:</p>
       <p><b>Int:</b> { int }</p>
       <button onClick={() => dispatch('increment')}>Increment</button>
@@ -53,15 +64,6 @@ const Demo1 = () => {
   )
 }
 
-
-// Wrap store and export
-export default () => (
-  <StoreProvider>
-    <Demo1/>
-  </StoreProvider>
-)
-
-const Code = ({ children }) => <pre>{ children.trim() }</pre>
 
 // Example code blocks
 const Code1 = () => <Code>{`

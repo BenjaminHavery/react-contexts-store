@@ -1,5 +1,8 @@
 
-import React, { useRef } from 'react'
+import React from 'react'
+
+import ValueTrackerTable from 'Components/ValueTrackerTable';
+import Code from 'Components/Code';
 
 import {
   StoreProvider,
@@ -18,42 +21,25 @@ import {
   useArrayExampleMiddle,
 } from './store'
 
-const ValueTest = ({ name, useValue }) => {
-  const val = useValue();
-  const renderCount = useRef(0);
-  renderCount.current += 1;
-  return (
-    <tr>
-      <td>{name}</td>
-      <td>{JSON.stringify(val)}</td>
-      <td>{renderCount.current}</td>
-    </tr>
+
+export default {
+  title: 'Selectors and keys',
+  Component: () => (
+    <StoreProvider>
+      <Demo/>
+    </StoreProvider>
   )
 }
 
-const Demo2 = () => {
+
+const Demo = () => {
   const dispatch = useDispatch();
-  const testValues = [
-    ['state', useStore],
-    ['state.int', useInt],
-    ['state.string', useString],
-    ['state.objectExample', useObjectExample],
-    ['state.objectExample.int', useObjectExampleInt],
-    ['state.objectExample.string', useString2],
-    ['state.objectExample.deepObject', useObjectExampleDeepObject],
-    ['state.objectExample.deepObject.int', useObjectExampleDeepObjectInt],
-    ['state.objectExample.deepObject.string', useString3],
-    ['state.arrayExample', useArrayExample],
-    ['state.arrayExample[0]', useArrayExampleFirst],
-    ['state.arrayExample[1]', useArrayExampleMiddle],
-  ];
 
   return (
     <div>
-      <h2>Larger stores, key generation and render behaviour</h2>
       <p>A more complex store will usually include objects, nested objects and/or arrays in its state.</p>
       <ul>
-        <li>You can include these in your <b>initialState</b> object to automatically produce a useValue hook for every addressable object key, named "<b>use<em>CamelCaseCombinedKeyString</em></b>" by default for exporting.</li>
+        <li>You can include these in your <b>initialState</b> object to automatically produce a useValue hook for every addressable object key, named "<b>use<em>CamelCaseCombinedKeys</em></b>" by default for exporting.</li>
         <li>You can also define additional custom selectors by including a selectors object in makeStore(), which will produce additional useValue hooks named "<b>use<em>SelectorKey</em></b>" by default for exporting. All selectors share a namespace, so you should avoid reusing keys in your custom selectors that were already inferred from initial state.</li>
       </ul>
       <p>Lets create a somewhat convoluted store to see what that looks like and explore render behaviour:</p>
@@ -74,16 +60,20 @@ const Demo2 = () => {
         <button onClick={() => dispatch('reverseArray')}>Reverse array</button>
       </p>
 
-      <table>
-        <tbody>
-          <tr>
-            <th>Store location</th>
-            <th>Value</th>
-            <th>Render count</th>
-          </tr>
-          { testValues.map(([name, useValue], key) => <ValueTest {...{ name, useValue, key }}/> )}
-        </tbody>
-      </table>
+      <ValueTrackerTable rows={[
+        ['state', useStore],
+        ['state.int', useInt],
+        ['state.string', useString],
+        ['state.objectExample', useObjectExample],
+        ['state.objectExample.int', useObjectExampleInt],
+        ['state.objectExample.string', useString2],
+        ['state.objectExample.deepObject', useObjectExampleDeepObject],
+        ['state.objectExample.deepObject.int', useObjectExampleDeepObjectInt],
+        ['state.objectExample.deepObject.string', useString3],
+        ['state.arrayExample', useArrayExample],
+        ['state.arrayExample[0]', useArrayExampleFirst],
+        ['state.arrayExample[1]', useArrayExampleMiddle],
+      ]}/>
 
       <h3>The result... Efficient rendering!</h3>
       <p>You may have noticed:</p>
@@ -91,22 +81,13 @@ const Demo2 = () => {
         <li>The row subscribed directly to state via useStore gets rerendered with every update, because the old state object got spread into a new one. This is why we don't want to subscribe to the root state object, and why context-store implementations (which do this) are unperformant.</li>
         <li>Conversely, each row subscribed to one of the 3 strings only renders once, no matter what you update, because none of our actions target them.</li>
         <li>Rows subscribed to the 2 nested objects update when their children do, ie. when an action spreads them.</li>
-        <li>The rows subscribed to arrayExample and arrayExample[0] rereneder when you reverse the array, but arrayExample[1] doesn't because the middle value of the 3 element array hasn't changed.</li>
+        <li>The rows subscribed to arrayExample and arrayExample[0] rerender when you reverse the array, but arrayExample[1] doesn't because the middle value of the 3 element array hasn't changed.</li>
       </ul>
       <p>So, components subscribed to a value rerender only when that specific value changes in terms of strict equality. Neat!</p>
     </div>
   )
 }
 
-
-// Wrap store and export
-export default () => (
-  <StoreProvider>
-    <Demo2/>
-  </StoreProvider>
-)
-
-const Code = ({ children }) => <pre>{ children.trim() }</pre>
 
 // Example code blocks
 const Code1 = () => <Code>{`

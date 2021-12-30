@@ -1,8 +1,8 @@
 
 import React from 'react'
 
-// export default () => <style>{`
-export default () => <style jsx>{`
+// export default () => <style jsx>{`
+export default () => <style>{`
 body {
   max-width: 1000px;
   padding: 30px;

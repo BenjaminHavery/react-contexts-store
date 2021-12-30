@@ -17,12 +17,14 @@ import {
 } from './store/slices/exampleSlice'
 
 
-// Wrap store
-export default () => (
-  <StoreProvider>
-    <Demo/>
-  </StoreProvider>
-)
+export default {
+  title: 'Slices',
+  Component: () => (
+    <StoreProvider>
+      <Demo/>
+    </StoreProvider>
+  )
+}
 
 
 // Demo page
@@ -31,7 +33,6 @@ const Demo = () => {
 
   return (
     <div>
-      <h2>Code splitting with slices</h2>
       <p>For medium to large stores putting every part of your store definition in a single file is likely impractical and illegible. In this instance it can be useful to split your store definition into "slices" by whatever grouping criteria makes sense for your project.</p>
       
       <h3>Defining a slice</h3>
