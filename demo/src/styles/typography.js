@@ -4,9 +4,6 @@ import React from 'react'
 // export default () => <style jsx>{`
 export default () => <style>{`
 body {
-  max-width: 1000px;
-  padding: 30px;
-  margin: 0 auto;
   font-family: sans-serif;
   line-height: 1.4
 }
@@ -17,7 +14,9 @@ pre {
   color: white;
   font-family: monospace;
   padding: 15px;
+  word-wrap: normal;
   overflow-x: auto;
+  white-space: pre;
 }
 
 p, pre {
@@ -51,7 +50,9 @@ b { font-weight: bold; }
 em { font-style: italic; }
 
 table {
+  display: block;
   width: 100%;
+  overflow: auto;
   text-align: left;
   margin: 0 0 10px;
 }

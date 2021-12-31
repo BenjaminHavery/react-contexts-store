@@ -11,12 +11,11 @@ import Demo4 from 'Pages/Demo4/index'
 
 export default [
   {
-    title: 'Home',
+    title: 'Introduction',
     slug: false,
     Component: () => (
       <>
-        <h1>react-contexts-store</h1>
-        <p>This is a tiny library of helper functions for creating performant React stores from simple syntax.</p>
+        <p><b>react-context<em>s</em>-store</b> is a tiny library of helper functions for creating performant React stores using minimal and intuitive syntax.</p>
         <p>It uses native hooks exclusively under the hood, no globals, but overcomes the well documented performance optimisation headaches attached to every other "context-store" Redux alternative I've seen.</p>
         <p>Optionally it provides extended store functionality, in the form of stable computed value selectors and dispatchable methods that allow action batching and/or async functionality.</p>
       </>

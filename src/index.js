@@ -52,19 +52,20 @@ export const makeObjectSelectors = (object, funcs = {}, parents = []) => {
 export const makeComputedSelector = (
   deps = [/* useValue1, useValue2, ... */],
   func = (/* value1, value2, ... */) => undefined,
+  base = undefined,
 ) => {
   const [Provider, useValue] = makeContext();
   const useSelector = () => {
-    const argsOld = useRef([]); // Arg values previously calculated
+    const argsOld = useRef([]); // Arg values previous render
     const argsNow = deps.map((d) => d()); // Arg values this render
-    const args = useMemo(() => {
+    const args = useMemo(() => { // Arg values stable array
       var update = false; // Should update?
       update = update || argsOld.current.length !== argsNow.length; // Yes if first run and has args
       argsOld.current.forEach((arg, i) => { update = update || argsNow[i] !== arg; }); // Yes if any arg values changed
       if (update) { argsOld.current = argsNow; } // Commit updated args
-      return argsOld.current; // Return old or new value
+      return argsOld.current; // Return old or new args
     }, [argsNow, argsOld]);
-    return useMemo(() => func(...args), [args]); // Recalculate value when arg values change
+    return useMemo(() => func(...args) || base, [args, base]); // Recalculate value when args change
   };
   return [{ Provider, useValue, useSelector, deps }, useValue];
 };
@@ -74,9 +75,8 @@ export const makeComputedSelector = (
 export const makeComputedSelectors = (comps = {}) => {
   const selectors = {},
         useValues = {};
-  Object.entries(comps).forEach(([key, comp]) => {
-    const [deps, func] = comp;
-    const [selector, useValue] = makeComputedSelector(deps, func);
+  Object.entries(comps).forEach(([key, comp = []]) => {
+    const [selector, useValue] = makeComputedSelector(...comp);
     selectors[key] = selector;
     useValues[`use${caps(key)}`] = useValue;
   });

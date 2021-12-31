@@ -4,8 +4,7 @@ import { render } from 'react-dom'
 
 import { StoreProvider } from 'Store'
 
-import Page from 'Components/Page'
-import Nav from 'Components/Nav'
+import Layout from 'Components/Layout'
 import UrlWatcher from 'Components/UrlWatcher'
 
 import Styles from 'Styles/main'
@@ -16,9 +15,8 @@ export default class Demo extends Component {
     return (
       <>
         <StoreProvider>
+          <Layout/>
           <UrlWatcher/>
-          <Nav/>
-          <Page/>
         </StoreProvider>
         <Styles/>
       </>

@@ -2,9 +2,15 @@
 import React from 'react'
 
 import Reset from './reset';
-import Theme from './theme';
+import Typography from './typography';
+import Layout from './layout';
+import Header from './header';
+import Nav from './nav';
 
 export default () => <>
   <Reset/>
-  <Theme/>
+  <Typography/>
+  <Layout/>
+  <Header/>
+  <Nav/>
 </>

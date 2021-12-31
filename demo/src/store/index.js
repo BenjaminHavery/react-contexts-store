@@ -8,8 +8,10 @@ const store = makeStore({
   initialState: {
     pageSlug: false,
     sectionSlug: false,
+    navOpen: false,
   },
   actions: {
+    toggleNav: (state, action) => ({ ...state, navOpen: action.open === undefined ? !state.navOpen : action.open }),
     setPage: (state, action) => ({ ...state, pageSlug: action.page?.slug || action.pageSlug || false }),
   },
   selectors: {
@@ -20,9 +22,9 @@ const store = makeStore({
       if (p) r.push(p);
       if (p && s) r.push(s);
       return r.join('/') || '/';
-    }],
-    pages: [['pageSlug'], (s) => _pages.map(p => ({ ...p, active: p.slug === s }))],
-    page: [['pages'], (p) => p.find(pp => pp.active) || p[0]],
+    }, ''],
+    pages: [['pageSlug'], (s) => _pages.map(p => ({ ...p, active: p.slug === s })), []],
+    page: [['pages'], (p) => p.find(pp => pp.active) || p[0], {}],
   },
 });
 
@@ -33,6 +35,7 @@ const {
   useRoute,
   usePages,
   usePage,
+  useNavOpen,
 } = store;
 
 export {
@@ -42,4 +45,5 @@ export {
   useRoute,
   usePages,
   usePage,
+  useNavOpen,
 };

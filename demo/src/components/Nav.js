@@ -1,19 +1,33 @@
 
-import React from 'react'
+import React, { useMemo } from 'react'
 
-import { usePages, useDispatch } from 'Store';
+import { useDispatch, usePages, useNavOpen } from 'Store';
 
 
 const Nav = () => {
-  const pages = usePages(),
-        dispatch = useDispatch();
+  const dispatch = useDispatch(),
+        pages = usePages(),
+        open = useNavOpen();
+        
+  const className = useMemo(() => {
+          const c = ['nav'];
+          if (open) c.push('open');
+          return c.join(' ');
+        }, [open]),
+        background = useMemo(() => `bg ${className}`, [className]);
   
   return (
-    <ul>
-      { pages.map(page => (
-        <li key={page.slug} onClick={() => dispatch({ type: 'setPage', page })}>{ page.title }</li>
-      ))}
-    </ul>
+    <>
+      <span className={background}/>
+      <ul {...{ className }}>
+        { pages.map(page => (
+          <li
+            key={page.slug}
+            onClick={() => dispatch({ type: 'setPage', page })}
+          >{ page.title }</li>
+        ))}
+      </ul>
+    </>
   )
 }
 
