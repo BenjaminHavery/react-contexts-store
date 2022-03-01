@@ -129,9 +129,13 @@ export const makeStore = (conf = {}) => {
   const selectorsArray = mapSelectors(selectors);
 
   // Provider(s)
-  const StoreProvider = ({ children, methodRefs = {} }) => {
-
-    const [state, _dispatch] = useActionsReducer(actions, initialState);
+  const StoreProvider = ({
+    children,
+    initialState: providerState = {},
+    mergeStates = (initial, provided) => ({ ...initial, ...provided }),
+    methodRefs = {},
+  }) => {
+    const [state, _dispatch] = useActionsReducer(actions, mergeStates(initialState, providerState));
     const computed = {};
     const dispatch = useMethodicDispatch(methods, _dispatch, { ...methodRefs, state, computed });
 
@@ -139,7 +143,6 @@ export const makeStore = (conf = {}) => {
       [ProviderStore, () => state],
       ...selectorsArray.map((s) => [s.Provider, s.useSelector, !!s.deps && s.key]),
       [ProviderDispatch, () => dispatch],
-      // [ProviderMethod, () => method],
     ];
 
     return <Providers {...{ providers, state, computed }}>{ children }</Providers>;
