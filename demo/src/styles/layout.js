@@ -1,18 +1,23 @@
 
 import React from 'react'
 
+import { media, air } from './theme';
+
+
 // export default () => <style jsx>{`
 export default () => <style jsx>{`
+html, body, .demo, .layout { overflow: hidden; }
 .layout {
   display: grid;
-  min-height: 100vh;
+  height: 100vh;
   width: 100vw;
   grid-template-columns: auto 90% auto;
   grid-template-rows: auto 1fr auto;
-
-  margin: 0;
-  padding: 0;
-
+}
+.page {
+  overflow: visible auto;
+  margin-right: -50vw;
+  padding-right: 50vw;
 }
 .header, .nav, .page, .footer {
   grid-column: 2;
@@ -27,7 +32,7 @@ export default () => <style jsx>{`
 .nav, .page { grid-row: 2; }
 .footer { grid-row: 3; }
 
-@media only screen and (min-width: 800px) {
+@media ${media.up.lg} {
   .layout {
     display: grid;
     min-height: 100vh;

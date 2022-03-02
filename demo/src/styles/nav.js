@@ -1,6 +1,9 @@
 
 import React from 'react'
 
+import { media } from './theme'
+
+
 // export default () => <style jsx>{`
 export default () => <style jsx>{`
 .nav {
@@ -15,7 +18,7 @@ export default () => <style jsx>{`
 }
 .nav.open { transform: translateX(0%) }
 
-@media only screen and (min-width: 800px) {
+@media ${media.up.lg} {
   .nav {
     transform: none !important;
     transition: none;

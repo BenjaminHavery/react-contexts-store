@@ -15,7 +15,7 @@ const Header = () => {
       <span className='header bg'/>
       <div className='header'>
         <h1>React-Contexts-Store</h1>
-        <button className='hamburger' dataOpen={navOpen} onClick={() => dispatch('toggleNav')}>=</button>
+        <button className='hamburger' onClick={() => dispatch('toggleNav')}>=</button>
       </div>
     </>
   )

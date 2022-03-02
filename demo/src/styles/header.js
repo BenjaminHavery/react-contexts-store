@@ -1,6 +1,8 @@
 
 import React from 'react'
 
+import { media } from './theme';
+
 // export default () => <style jsx>{`
 export default () => <style jsx>{`
 .header {
@@ -16,7 +18,7 @@ export default () => <style jsx>{`
   flex: 0 0 auto;
 }
 
-@media only screen and (min-width: 800px) {
+@media ${media.up.lg} {
   .hamburger {
     display: none;
   }

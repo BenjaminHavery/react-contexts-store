@@ -5,7 +5,8 @@ import React from 'react'
 export default () => <style>{`
 body {
   font-family: sans-serif;
-  line-height: 1.4
+  line-height: 1.4;
+  font-size: 16px;
 }
 
 pre {
